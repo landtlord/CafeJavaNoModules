@@ -1,11 +1,8 @@
 package be.hogent.eindproject.model.model;
 
 
-import lombok.Getter;
-
 import java.util.Objects;
 
-@Getter
 public class Waiter {
     private final int id;
     private final String lastName;
@@ -17,6 +14,22 @@ public class Waiter {
         this.lastName = lastName;
         this.firstName = firstName;
         this.password = password;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 
     @Override
@@ -31,4 +44,5 @@ public class Waiter {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

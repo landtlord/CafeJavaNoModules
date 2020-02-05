@@ -1,11 +1,8 @@
 package be.hogent.eindproject.model.model;
 
 
-import lombok.Getter;
-
 import java.util.Objects;
 
-@Getter
 public class Beverage {
     private final int beverageID;
     private final String beverageName;
@@ -15,6 +12,18 @@ public class Beverage {
         this.beverageID = beverageID;
         this.beverageName = beverageName;
         this.price = price;
+    }
+
+    public int getBeverageID() {
+        return this.beverageID;
+    }
+
+    public String getBeverageName() {
+        return this.beverageName;
+    }
+
+    public double getPrice() {
+        return this.price;
     }
 
     @Override
@@ -29,4 +38,6 @@ public class Beverage {
     public int hashCode() {
         return Objects.hash(beverageID);
     }
+
+
 }

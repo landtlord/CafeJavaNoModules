@@ -1,11 +1,8 @@
 package be.hogent.eindproject.model.model;
 
-import lombok.Getter;
-
 import java.time.LocalDate;
 import java.util.Objects;
 
-@Getter
 public class Order {
     private final int id;
     private final int orderNumber;
@@ -23,6 +20,30 @@ public class Order {
         this.waiter = waiter;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
+    public int getOrderNumber() {
+        return this.orderNumber;
+    }
+
+    public Beverage getBeverage() {
+        return this.beverage;
+    }
+
+    public int getQuantity() {
+        return this.quantity;
+    }
+
+    public LocalDate getDate() {
+        return this.date;
+    }
+
+    public Waiter getWaiter() {
+        return this.waiter;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,4 +56,6 @@ public class Order {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
 }
