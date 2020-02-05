@@ -4,10 +4,8 @@ import be.hogent.eindproject.model.model.Beverage;
 import be.hogent.eindproject.model.model.Order;
 import be.hogent.eindproject.model.model.Waiter;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 
 public class OrderRepository extends Repository<Order> {
     private BeverageRepository beverageRepository = new BeverageRepository();
@@ -33,12 +31,15 @@ public class OrderRepository extends Repository<Order> {
         Beverage beverage = beverageRepository.findByID(resultSet.getInt("beverageID"));
         Waiter waiter = waiterRepository.findByID(resultSet.getInt("waiterID"));
 
+        Date date = resultSet.getDate("date");
+        LocalDate localDate = date.toLocalDate().plusDays(1);
+
         return new Order(
                 resultSet.getInt("ID"),
                 resultSet.getInt("orderNumber"),
                 beverage,
                 resultSet.getInt("qty"),
-                resultSet.getDate("date").toLocalDate(),
+                localDate,
                 waiter);
     }
 }

@@ -1,30 +1,66 @@
 package be.hogent.eindproject.model.infrastructure;
 
 import be.hogent.eindproject.model.model.Beverage;
+import be.hogent.eindproject.model.model.Order;
+import be.hogent.eindproject.model.model.Waiter;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RepositorysTest {
+class RepositoriesTest {
     BeverageRepository beverageRepository = new BeverageRepository();
+    OrderRepository orderRepository = new OrderRepository();
+    WaiterRepository waiterRepository = new WaiterRepository();
 
     @Test
-    void findByID() {
+    void givenBeverageRepository_whenFindByID_theTheCorrectBeverageIsProvide() {
+        //when
         Beverage beverage = beverageRepository.findByID(1);
 
+        //then
         assertThat(beverage.getBeverageID()).isEqualTo(1);
         assertThat(beverage.getBeverageName()).isEqualTo("Cola");
         assertThat(beverage.getPrice()).isEqualTo(2.40);
     }
 
     @Test
-    void getAllBeverages() {
+    void givenBeverageRepository_whenGetAllBeveragesInDatabase_theTheCorrectListOfBeveragesIsProvide() {
+        //when
         List<Beverage> beverages = beverageRepository.getAllBeverages();
 
+        //then
         assertThat(beverages).isNotEmpty();
         assertThat(beverages).containsAll(getAllBeveragesInDatabase());
+    }
+
+    @Test
+    void givenWaiterRepository_whenFindByID_theTheCorrectWaiterIsProvide() {
+        //when
+        Waiter waiter = waiterRepository.findByID(1);
+
+        //then
+        assertThat(waiter.getId()).isEqualTo(1);
+        assertThat(waiter.getFirstName()).isEqualTo("Wout");
+        assertThat(waiter.getLastName()).isEqualTo("Peters");
+        assertThat(waiter.getPassword()).isEqualTo("password");
+
+    }
+
+    @Test
+    void givenOrderRepository_whenFindByID_theTheCorrectOrderIsProvide() {
+        //when
+        Order order = orderRepository.findByID(1);
+
+        //then
+        assertThat(order.getId()).isEqualTo(1);
+        assertThat(order.getOrderNumber()).isEqualTo(1);
+        assertThat(order.getQuantity()).isEqualTo(5);
+        assertThat(order.getDate()).isEqualTo(LocalDate.of(2019, 12, 13));
+        assertThat(order.getBeverage()).isEqualTo(beverageRepository.findByID(1));
+        assertThat(order.getWaiter()).isEqualTo(waiterRepository.findByID(1));
     }
 
     private List<Beverage> getAllBeveragesInDatabase() {

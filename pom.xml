@@ -69,12 +69,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector-java.version}</version>
@@ -89,7 +83,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.3</version>
                 <configuration>
-                    <mainClass>com.switchfully.project.rowdyracers.RowdyRacersFxApplication</mainClass>
+                    <mainClass>be.hogent.eindproject.view.Cafe</mainClass>
                 </configuration>
             </plugin>
             <plugin>
