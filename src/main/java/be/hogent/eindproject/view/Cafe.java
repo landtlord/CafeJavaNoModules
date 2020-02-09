@@ -3,7 +3,7 @@ package be.hogent.eindproject.view;
 import be.hogent.eindproject.controller.LogInController;
 import be.hogent.eindproject.controller.WaiterController;
 import be.hogent.eindproject.view.components.LinkBox;
-import be.hogent.eindproject.view.components.TableGrid;
+import be.hogent.eindproject.view.components.MainView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
@@ -17,11 +17,11 @@ public class Cafe extends Application {
 
     private LogInController logInController = new LogInController();
     private WaiterController waiterController = new WaiterController();
-    private HBox hBox = new HBox();
+    private HBox view = new HBox();
     private Integer loggedInWaiterID = -1;
 
     private LinkBox linkBox;
-    private TableGrid tableGrid;
+    private MainView mainView;
 
 
     public static void main(String[] args) {
@@ -32,15 +32,15 @@ public class Cafe extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Welcome in Cafe Java");
         primaryStage.show();
-        primaryStage.setScene(new Scene(hBox, WIDTH, HEIGHT));
-        setHBox();
+        primaryStage.setScene(new Scene(view, WIDTH, HEIGHT));
+        setView();
         linkBox.checkIfLoggedIn();
     }
 
-    private void setHBox() {
+    private void setView() {
         linkBox = new LinkBox(logInController);
-        tableGrid = new TableGrid();
-        hBox.getChildren().addAll(linkBox.getLinkBox(), tableGrid.getTableGrid());
+        mainView = new MainView();
+        view.getChildren().addAll(linkBox.getLinkBox(), mainView.getMainView());
     }
 
 }
