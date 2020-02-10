@@ -1,79 +1,49 @@
 package be.hogent.eindproject.view;
 
 import be.hogent.eindproject.controller.LogInController;
-import be.hogent.eindproject.controller.WaiterController;
-import be.hogent.eindproject.view.components.LoginPopup;
+import be.hogent.eindproject.controller.OrderController;
+import be.hogent.eindproject.controller.TableController;
+import be.hogent.eindproject.view.components.LinkBox;
+import be.hogent.eindproject.view.components.MainView;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.util.Pair;
-
-import java.util.Optional;
 
 public class Cafe extends Application {
 
+    public static final int WIDTH = 900;
+    public static final int HEIGHT = 600;
+    public static final int NUMBER_OF_TABLES = 16;
+    public static final int NUMBER_OF_COLUMNS = 4;
+
     private LogInController logInController = new LogInController();
-    private WaiterController waiterController = new WaiterController();
-    private VBox vBox = new VBox();
+    private TableController tableController = new TableController(16);
+    private OrderController orderController = new OrderController();
+
+    private HBox view = new HBox();
+
+    private LinkBox linkBox;
+    private MainView mainView;
+
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    Boolean loggedIn = false;
-    int loggedInWaiterID = -1;
-
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Welcome in Cafe Java");
         primaryStage.show();
-        StackPane root = new StackPane();
-        primaryStage.setScene(new Scene(root, 1500, 1000));
-        root.getChildren().add(vBox);
-        checkIfLoggedIn();
+        primaryStage.setScene(new Scene(view, WIDTH, HEIGHT));
+        setView();
+        linkBox.checkIfLoggedIn();
     }
 
-    private void setVBox() {
-        vBox.getChildren().addAll(new Label("Welcome in Cafe Java"), getLogoutButton());
-        Label waiterName = new Label(waiterController.getFullNameOfWaiterBy(loggedInWaiterID));
-        vBox.getChildren().add(waiterName);
+    private void setView() {
+        mainView = new MainView(logInController, tableController, orderController);
+        linkBox = new LinkBox(logInController, mainView);
+        view.getChildren().addAll(linkBox.getLinkBox(), mainView.getMainView());
     }
-
-
-    private Button getLogoutButton() {
-        Button button = new Button("Log out");
-        button.setOnAction(e -> {
-            loggedIn = false;
-            vBox.getChildren().clear();
-            checkIfLoggedIn();
-        });
-        return button;
-    }
-
-    private void checkIfLoggedIn() {
-        if (!loggedIn) {
-            var login = new LoginPopup().getLoginPopup();
-            Optional<Pair<String, String>> result = login.showAndWait();
-            if (result.isPresent()) {
-                try {
-                    int waiterId = Integer.parseInt(result.get().getKey());
-                    loggedIn = logInController.checkLogin(waiterId, result.get().getValue());
-                    if (loggedIn) {
-                        loggedInWaiterID = waiterId;
-                        setVBox();
-                    }
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-            }
-            checkIfLoggedIn();
-        }
-    }
-
-
 
 }

@@ -21,7 +21,6 @@ public class LoginPopup {
     private Dialog<Pair<String, String>> createLoginPopup() {
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Login Dialog");
-        dialog.setHeaderText("Look, a Custom Login Dialog");
 
         GridPane loginScreen = new GridPane();
         loginScreen.setPadding(new Insets(10, 10, 10, 10));

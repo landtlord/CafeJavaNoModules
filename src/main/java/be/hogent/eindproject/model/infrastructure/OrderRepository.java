@@ -6,6 +6,8 @@ import be.hogent.eindproject.model.model.Waiter;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderRepository extends Repository<Order> {
     private BeverageRepository beverageRepository = new BeverageRepository();
@@ -41,5 +43,9 @@ public class OrderRepository extends Repository<Order> {
                 resultSet.getInt("qty"),
                 localDate,
                 waiter);
+    }
+
+    public List<Order> getOpenOrdersFor(int tableNumber) {
+        return new ArrayList<>();
     }
 }
