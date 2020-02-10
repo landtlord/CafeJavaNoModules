@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TableController {
     private HashMap<Integer, Table> tableList;
-    private OrderRepository orderRepository =
+    private OrderRepository orderRepository = new OrderRepository();
 
     public TableController(int numberOfTables) {
         createTableMap(numberOfTables);
