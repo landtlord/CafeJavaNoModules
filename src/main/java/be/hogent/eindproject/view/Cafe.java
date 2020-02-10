@@ -1,7 +1,8 @@
 package be.hogent.eindproject.view;
 
 import be.hogent.eindproject.controller.LogInController;
-import be.hogent.eindproject.controller.WaiterController;
+import be.hogent.eindproject.controller.OrderController;
+import be.hogent.eindproject.controller.TableController;
 import be.hogent.eindproject.view.components.LinkBox;
 import be.hogent.eindproject.view.components.MainView;
 import javafx.application.Application;
@@ -14,11 +15,13 @@ public class Cafe extends Application {
     public static final int WIDTH = 900;
     public static final int HEIGHT = 600;
     public static final int NUMBER_OF_TABLES = 16;
+    public static final int NUMBER_OF_COLUMNS = 4;
 
     private LogInController logInController = new LogInController();
-    private WaiterController waiterController = new WaiterController();
+    private TableController tableController = new TableController(16);
+    private OrderController orderController = new OrderController();
+
     private HBox view = new HBox();
-    private Integer loggedInWaiterID = -1;
 
     private LinkBox linkBox;
     private MainView mainView;
@@ -38,8 +41,8 @@ public class Cafe extends Application {
     }
 
     private void setView() {
-        linkBox = new LinkBox(logInController);
-        mainView = new MainView();
+        mainView = new MainView(logInController, tableController, orderController);
+        linkBox = new LinkBox(logInController, mainView);
         view.getChildren().addAll(linkBox.getLinkBox(), mainView.getMainView());
     }
 

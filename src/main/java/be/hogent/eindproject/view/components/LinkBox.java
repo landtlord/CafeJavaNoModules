@@ -16,12 +16,14 @@ import javafx.util.Pair;
 import java.util.Optional;
 
 public class LinkBox {
+    private MainView mainView;
     private VBox linkBox;
     private LogInController logInController;
     private Text loggedInUser;
 
-    public LinkBox(LogInController logInController) {
+    public LinkBox(LogInController logInController, MainView mainView) {
         this.logInController = logInController;
+        this.mainView = mainView;
         setLoggedInUser();
         setLinkBox();
 
@@ -39,7 +41,7 @@ public class LinkBox {
     private void setLinkBox() {
         linkBox = new VBox(loggedInUser, getLogoutButton());
         linkBox.setMinSize((double) Cafe.WIDTH / 6, Cafe.HEIGHT);
-        linkBox.setBackground((new Background(new BackgroundFill(Color.rgb(10, 10, 20), CornerRadii.EMPTY, Insets.EMPTY))));
+        linkBox.setBackground((new Background(new BackgroundFill(Color.rgb(100, 100, 100), CornerRadii.EMPTY, Insets.EMPTY))));
     }
 
     public VBox getLinkBox() {
@@ -51,6 +53,7 @@ public class LinkBox {
         button.setOnAction(e -> {
             logInController.logOut();
             refreshLoggedInUser();
+            mainView.switchToTableView();
             checkIfLoggedIn();
         });
         return button;

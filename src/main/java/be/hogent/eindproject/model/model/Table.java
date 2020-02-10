@@ -7,7 +7,6 @@ public class Table {
 
     private final ArrayList<Order> openOrdersList;
 
-
     public Table(int tableNumber) {
         this.tableNumber = tableNumber;
         openOrdersList = new ArrayList<>();
@@ -19,5 +18,9 @@ public class Table {
 
     public int getTableNumber() {
         return tableNumber;
+    }
+
+    public ArrayList<Order> getOpenOrders() {
+        return openOrdersList;
     }
 }

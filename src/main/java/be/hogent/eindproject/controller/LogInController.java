@@ -5,19 +5,17 @@ import be.hogent.eindproject.controller.DTO.mappers.WaiterMapper;
 import be.hogent.eindproject.model.infrastructure.WaiterRepository;
 import be.hogent.eindproject.model.model.Waiter;
 
-public class LogInController {
-    private WaiterRepository waiterRepository;
+public class LogInController extends Controller {
     private WaiterDTO loggedInWaiterDTO;
     private boolean loggedIn = false;
 
     public LogInController() {
-        this.waiterRepository = new WaiterRepository();
         setNoBodyLoggedInWaiterDTO();
     }
 
     //for testing with Mocked waiterRepository
     LogInController(WaiterRepository waiterRepository) {
-        this.waiterRepository = waiterRepository;
+        super(waiterRepository);
         setNoBodyLoggedInWaiterDTO();
     }
 
