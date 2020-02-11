@@ -7,7 +7,7 @@ import be.hogent.eindproject.controller.DTO.mappers.BeverageMapper;
 import be.hogent.eindproject.controller.DTO.mappers.OrderMapper;
 import be.hogent.eindproject.controller.DTO.mappers.WaiterMapper;
 import be.hogent.eindproject.model.model.Beverage;
-import be.hogent.eindproject.model.model.Order;
+import be.hogent.eindproject.model.model.OrderLine;
 import be.hogent.eindproject.model.model.Waiter;
 import org.junit.jupiter.api.Test;
 
@@ -26,10 +26,10 @@ class OrderMapperTest {
         int quantity = 3;
         LocalDate date = LocalDate.now();
         Waiter waiter = new Waiter(1, "Vermeulen", "Joske", "GeRaadHetNooit");
-        Order order = new Order(id, orderNumber, beverage, quantity, date, waiter);
+        OrderLine orderLine = new OrderLine(id, orderNumber, beverage, quantity, date, waiter);
 
         //when
-        OrderDTO orderDTO = OrderMapper.mapToOrderDTO(order);
+        OrderDTO orderDTO = OrderMapper.mapToOrderDTO(orderLine);
 
         //then
         assertEquals(id, orderDTO.getId());
@@ -52,15 +52,15 @@ class OrderMapperTest {
         OrderDTO orderDTO = getOrderDTO(id, orderNumber, beverageDTO, quantity, date, waiterDTO);
 
         //when
-        Order order = OrderMapper.mapToOrder(orderDTO);
+        OrderLine orderLine = OrderMapper.mapToOrder(orderDTO);
 
         //then
-        assertEquals(id, order.getId());
-        assertEquals(orderNumber, order.getOrderNumber());
-        assertEquals(BeverageMapper.mapToBeverage(beverageDTO), order.getBeverage());
-        assertEquals(quantity, order.getQuantity());
-        assertEquals(date, order.getDate());
-        assertEquals(WaiterMapper.mapToWaiter(waiterDTO), order.getWaiter());
+        assertEquals(id, orderLine.getId());
+        assertEquals(orderNumber, orderLine.getOrderNumber());
+        assertEquals(BeverageMapper.mapToBeverage(beverageDTO), orderLine.getBeverage());
+        assertEquals(quantity, orderLine.getQuantity());
+        assertEquals(date, orderLine.getDate());
+        assertEquals(WaiterMapper.mapToWaiter(waiterDTO), orderLine.getWaiter());
     }
 
     private OrderDTO getOrderDTO(int id, int orderNumber, BeverageDTO beverageDTO, int quantity, LocalDate date, WaiterDTO waiterDTO) {

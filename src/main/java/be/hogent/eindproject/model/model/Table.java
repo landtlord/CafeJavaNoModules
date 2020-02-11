@@ -1,26 +1,26 @@
 package be.hogent.eindproject.model.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Table {
     private final int tableNumber;
 
-    private final ArrayList<Order> openOrdersList;
+    private List<OrderLine> orderLines;
 
-    public Table(int tableNumber) {
+    public Table(int tableNumber, List<OrderLine> orderLines) {
         this.tableNumber = tableNumber;
-        openOrdersList = new ArrayList<>();
+        this.orderLines = new ArrayList<>();
+        if (!(orderLines == null)) {
+            this.orderLines = orderLines;
+        }
     }
 
-    public boolean hasOrders() {
-        return !openOrdersList.isEmpty();
+    public List<OrderLine> getOrderLines() {
+        return orderLines;
     }
 
     public int getTableNumber() {
         return tableNumber;
-    }
-
-    public ArrayList<Order> getOpenOrders() {
-        return openOrdersList;
     }
 }

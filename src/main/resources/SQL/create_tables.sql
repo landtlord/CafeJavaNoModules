@@ -43,7 +43,7 @@ create table orders
     charset = utf8;
 
 create index FK_BEVERAGE_idx
-    on orders (beverageID);
+    on orderLines (beverageID);
 
 create index FK_WAITER_idx
-    on orders (waiterID);
+    on orderLines (waiterID);

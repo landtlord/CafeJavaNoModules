@@ -1,7 +1,7 @@
 package be.hogent.eindproject.model.infrastructure;
 
 import be.hogent.eindproject.model.model.Beverage;
-import be.hogent.eindproject.model.model.Order;
+import be.hogent.eindproject.model.model.OrderLine;
 import be.hogent.eindproject.model.model.Waiter;
 import org.junit.jupiter.api.Test;
 
@@ -52,15 +52,15 @@ class RepositoriesTest {
     @Test
     void givenOrderRepository_whenFindByID_theTheCorrectOrderIsProvide() {
         //when
-        Order order = orderRepository.findByID(1);
+        OrderLine orderLine = orderRepository.findByID(1);
 
         //then
-        assertThat(order.getId()).isEqualTo(1);
-        assertThat(order.getOrderNumber()).isEqualTo(1);
-        assertThat(order.getQuantity()).isEqualTo(5);
-        assertThat(order.getDate()).isEqualTo(LocalDate.of(2019, 12, 13));
-        assertThat(order.getBeverage()).isEqualTo(beverageRepository.findByID(1));
-        assertThat(order.getWaiter()).isEqualTo(waiterRepository.findByID(1));
+        assertThat(orderLine.getId()).isEqualTo(1);
+        assertThat(orderLine.getOrderNumber()).isEqualTo(1);
+        assertThat(orderLine.getQuantity()).isEqualTo(5);
+        assertThat(orderLine.getDate()).isEqualTo(LocalDate.of(2019, 12, 13));
+        assertThat(orderLine.getBeverage()).isEqualTo(beverageRepository.findByID(1));
+        assertThat(orderLine.getWaiter()).isEqualTo(waiterRepository.findByID(1));
     }
 
     private List<Beverage> getAllBeveragesInDatabase() {
