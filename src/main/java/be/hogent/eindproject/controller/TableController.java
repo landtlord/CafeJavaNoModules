@@ -1,13 +1,11 @@
 package be.hogent.eindproject.controller;
 
-import be.hogent.eindproject.controller.DTO.OrderDTO;
 import be.hogent.eindproject.controller.DTO.TableDTO;
 import be.hogent.eindproject.controller.DTO.mappers.TableMapper;
 import be.hogent.eindproject.model.model.Order;
 import be.hogent.eindproject.model.model.Table;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class TableController extends Controller {
     private HashMap<Integer, Table> tableList = new HashMap<>();
@@ -22,17 +20,20 @@ public class TableController extends Controller {
         return TableMapper.mapToDTO(table);
     }
 
-    public void addOrderToTable(int tableNumber, List<OrderDTO> orderDTOS) {
-
-    }
-
     private void createTableMap(int numberOfTables) {
         for (int i = 0; i < numberOfTables; i++) {
-            Table table = new Table(i);
-            List<Order> openOrders = orderRepository.getOpenOrdersFor(table.getTableNumber());
+            Order order = orderRepository.getOpenOrderFor(i);
+            Table table;
+            if (order == null) {
+                table = new Table(i, null);
+            } else {
+                table = new Table(i, order);
+            }
             tableList.put(i, table);
         }
     }
 
-
+    public void tablePayed(int tableNumber) {
+        tableList.get(tableNumber).payOrder();
+    }
 }

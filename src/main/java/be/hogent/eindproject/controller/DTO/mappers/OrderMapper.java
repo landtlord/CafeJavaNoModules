@@ -1,29 +1,25 @@
 package be.hogent.eindproject.controller.DTO.mappers;
 
-import be.hogent.eindproject.controller.DTO.OrderDTO;
-import be.hogent.eindproject.model.model.Order;
+import be.hogent.eindproject.controller.DTO.OrderLineDTO;
+import be.hogent.eindproject.model.model.OrderLine;
 
 public class OrderMapper {
-    public static OrderDTO mapToOrderDTO(Order order) {
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setId(order.getId());
-        orderDTO.setOrderNumber(order.getOrderNumber());
-        orderDTO.setBeverageDTO(BeverageMapper.mapToBeverageDTO(order.getBeverage()));
-        orderDTO.setQuantity(order.getQuantity());
-        orderDTO.setDate(order.getDate());
-        orderDTO.setWaiterDTO(WaiterMapper.mapToWaiterDTO(order.getWaiter()));
-        return orderDTO;
+    public static OrderLineDTO mapToOrderDTO(OrderLine orderLine) {
+        OrderLineDTO orderLineDTO = new OrderLineDTO();
+        orderLineDTO.setId(orderLine.getId());
+        orderLineDTO.setOrderNumber(orderLine.getOrderNumber());
+        orderLineDTO.setBeverageDTO(BeverageMapper.mapToBeverageDTO(orderLine.getBeverage()));
+        orderLineDTO.setQuantity(orderLine.getQuantity());
+
+        return orderLineDTO;
     }
 
-    public static Order mapToOrder(OrderDTO orderDTO) {
-        return new Order(
-                orderDTO.getId(),
-                orderDTO.getOrderNumber(),
-                BeverageMapper.mapToBeverage(orderDTO.getBeverageDTO()),
-                orderDTO.getQuantity(),
-                orderDTO.getDate(),
-                WaiterMapper.mapToWaiter(orderDTO.getWaiterDTO())
+    public static OrderLine mapToOrder(OrderLineDTO orderLineDTO) {
+        return new OrderLine(
+                orderLineDTO.getId(),
+                orderLineDTO.getOrderNumber(),
+                BeverageMapper.mapToBeverage(orderLineDTO.getBeverageDTO()),
+                orderLineDTO.getQuantity()
         );
     }
-
 }

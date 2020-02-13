@@ -1,14 +1,12 @@
 package be.hogent.eindproject.controller.mappers;
 
 import be.hogent.eindproject.controller.DTO.BeverageDTO;
-import be.hogent.eindproject.controller.DTO.OrderDTO;
+import be.hogent.eindproject.controller.DTO.OrderLineDTO;
 import be.hogent.eindproject.controller.DTO.WaiterDTO;
 import be.hogent.eindproject.controller.DTO.mappers.BeverageMapper;
 import be.hogent.eindproject.controller.DTO.mappers.OrderMapper;
-import be.hogent.eindproject.controller.DTO.mappers.WaiterMapper;
 import be.hogent.eindproject.model.model.Beverage;
-import be.hogent.eindproject.model.model.Order;
-import be.hogent.eindproject.model.model.Waiter;
+import be.hogent.eindproject.model.model.OrderLine;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -25,19 +23,16 @@ class OrderMapperTest {
         Beverage beverage = new Beverage(1, "Cola", 2.40);
         int quantity = 3;
         LocalDate date = LocalDate.now();
-        Waiter waiter = new Waiter(1, "Vermeulen", "Joske", "GeRaadHetNooit");
-        Order order = new Order(id, orderNumber, beverage, quantity, date, waiter);
+        OrderLine orderLine = new OrderLine(id, orderNumber, beverage, quantity);
 
         //when
-        OrderDTO orderDTO = OrderMapper.mapToOrderDTO(order);
+        OrderLineDTO orderDTO = OrderMapper.mapToOrderDTO(orderLine);
 
         //then
         assertEquals(id, orderDTO.getId());
         assertEquals(orderNumber, orderDTO.getOrderNumber());
         assertEquals(BeverageMapper.mapToBeverageDTO(beverage), orderDTO.getBeverageDTO());
         assertEquals(quantity, orderDTO.getQuantity());
-        assertEquals(date, orderDTO.getDate());
-        assertEquals(WaiterMapper.mapToWaiterDTO(waiter), orderDTO.getWaiterDTO());
     }
 
     @Test
@@ -48,30 +43,27 @@ class OrderMapperTest {
         BeverageDTO beverageDTO = getBeverageDTO();
         int quantity = 3;
         LocalDate date = LocalDate.now();
-        WaiterDTO waiterDTO = getWaiterDTO();
-        OrderDTO orderDTO = getOrderDTO(id, orderNumber, beverageDTO, quantity, date, waiterDTO);
+        OrderLineDTO orderDTO = getOrderLinDTO(id, orderNumber, beverageDTO, quantity);
 
         //when
-        Order order = OrderMapper.mapToOrder(orderDTO);
+        OrderLine orderLine = OrderMapper.mapToOrder(orderDTO);
 
         //then
-        assertEquals(id, order.getId());
-        assertEquals(orderNumber, order.getOrderNumber());
-        assertEquals(BeverageMapper.mapToBeverage(beverageDTO), order.getBeverage());
-        assertEquals(quantity, order.getQuantity());
-        assertEquals(date, order.getDate());
-        assertEquals(WaiterMapper.mapToWaiter(waiterDTO), order.getWaiter());
+        assertEquals(id, orderLine.getId());
+        assertEquals(orderNumber, orderLine.getOrderNumber());
+        assertEquals(BeverageMapper.mapToBeverage(beverageDTO), orderLine.getBeverage());
+        assertEquals(quantity, orderLine.getQuantity());
+
     }
 
-    private OrderDTO getOrderDTO(int id, int orderNumber, BeverageDTO beverageDTO, int quantity, LocalDate date, WaiterDTO waiterDTO) {
-        OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setId(id);
-        orderDTO.setOrderNumber(orderNumber);
-        orderDTO.setBeverageDTO(beverageDTO);
-        orderDTO.setQuantity(quantity);
-        orderDTO.setDate(date);
-        orderDTO.setWaiterDTO(waiterDTO);
-        return orderDTO;
+    private OrderLineDTO getOrderLinDTO(int id, int orderNumber, BeverageDTO beverageDTO, int quantity) {
+        OrderLineDTO orderLineDTO = new OrderLineDTO();
+        orderLineDTO.setId(id);
+        orderLineDTO.setOrderNumber(orderNumber);
+        orderLineDTO.setBeverageDTO(beverageDTO);
+        orderLineDTO.setQuantity(quantity);
+
+        return orderLineDTO;
     }
 
     private WaiterDTO getWaiterDTO() {

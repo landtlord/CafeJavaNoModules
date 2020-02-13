@@ -1,47 +1,95 @@
 package be.hogent.eindproject.model.model;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 public class Order {
-    private final int id;
-    private final int orderNumber;
-    private final Beverage beverage;
-    private final int quantity;
-    private final LocalDate date;
-    private final Waiter waiter;
+    private int ID;
+    private List<OrderLine> orderLines;
+    private int tableNumber;
+    private Boolean payed;
+    private LocalDate date;
 
-    public Order(int id, int orderNumber, Beverage beverage, int quantity, LocalDate date, Waiter waiter) {
-        this.id = id;
-        this.orderNumber = orderNumber;
-        this.beverage = beverage;
-        this.quantity = quantity;
+    private Waiter waiter;
+
+    public Order(int ID, List<OrderLine> orderLines, int tableNumber, Boolean payed, LocalDate date, Waiter waiter) {
+        this.ID = ID;
+        this.orderLines = orderLines;
+        this.tableNumber = tableNumber;
+        this.payed = payed;
         this.date = date;
         this.waiter = waiter;
     }
 
-    public int getId() {
-        return this.id;
+    public Order(int ID, int tableNumber, Boolean payed, Waiter waiter, LocalDate date) {
+        this.ID = ID;
+        this.tableNumber = tableNumber;
+        this.payed = payed;
+        this.waiter = waiter;
+        this.date = date;
     }
 
-    public int getOrderNumber() {
-        return this.orderNumber;
-    }
-
-    public Beverage getBeverage() {
-        return this.beverage;
-    }
-
-    public int getQuantity() {
-        return this.quantity;
+    public Order(int ID, int tableNumber, boolean payed) {
+        this.ID = ID;
+        this.tableNumber = tableNumber;
+        this.payed = payed;
     }
 
     public LocalDate getDate() {
-        return this.date;
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public int getTableNumber() {
+        return tableNumber;
+    }
+
+    public void setTableNumber(int tableNumber) {
+        this.tableNumber = tableNumber;
     }
 
     public Waiter getWaiter() {
-        return this.waiter;
+        return waiter;
+    }
+
+    public void setWaiter(Waiter waiter) {
+        this.waiter = waiter;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public List<OrderLine> getOrderLines() {
+        return orderLines;
+    }
+
+    public void setOrderLines(List<OrderLine> orderLines) {
+        this.orderLines = orderLines;
+    }
+
+    public int getTable() {
+        return tableNumber;
+    }
+
+    public void setTable(int tableNumber) {
+        this.tableNumber = tableNumber;
+    }
+
+    public Boolean getPayed() {
+        return payed;
+    }
+
+    public void setPayed(Boolean payed) {
+        this.payed = payed;
     }
 
     @Override
@@ -49,13 +97,11 @@ public class Order {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return id == order.id;
+        return ID == order.ID;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(ID);
     }
-
-
 }

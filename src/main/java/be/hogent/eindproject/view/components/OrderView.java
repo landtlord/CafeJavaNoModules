@@ -1,7 +1,7 @@
 package be.hogent.eindproject.view.components;
 
 import be.hogent.eindproject.controller.DTO.BeverageDTO;
-import be.hogent.eindproject.controller.DTO.OrderDTO;
+import be.hogent.eindproject.controller.DTO.OrderLineDTO;
 import be.hogent.eindproject.controller.OrderController;
 import be.hogent.eindproject.view.Cafe;
 import javafx.collections.FXCollections;
@@ -12,7 +12,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 import java.util.stream.Collectors;
 
@@ -27,34 +26,30 @@ public class OrderView {
         this.mainView = mainView;
     }
 
-    public void setTable(int tableNumber) {
-        orderView.getChildren().clear();
-        orderView.getChildren().add(new Text("Current table " + tableNumber));
-    }
-
     public Node getOrderView(int tableNumber) {
-        setTable(tableNumber);
         orderView.getChildren().clear();
-        Button returnToTableView = new Button("return");
-        returnToTableView.setOnAction(e -> mainView.switchToTableView());
         orderView.getChildren().addAll(getBeverageListView(), getOrderListView(tableNumber));
         return orderView;
     }
 
     private Node getOrderListView(int tableNumber) {
         VBox orderListView = new VBox();
-
-        orderListView.getChildren().addAll(getOrderList(tableNumber), getButtons());
+        orderListView.getChildren().addAll(getOrderList(tableNumber), getButtons(tableNumber));
         return orderListView;
     }
 
-    private Node getButtons() {
+    private Node getButtons(int tableNumber) {
         GridPane buttons = new GridPane();
         Button add = new Button("add");
         buttons.add(add, 0, 0);
         Button correct = new Button("correct");
         buttons.add(correct, 1, 0);
         Button pay = new Button("pay");
+        pay.setOnAction(e -> {
+            new CheckOutPopUp(orderController.getOrderLinesFor(tableNumber)).getCheckOutPopUp().showAndWait();
+            orderController.payOrder(tableNumber);
+            mainView.switchToTableView(tableNumber);
+        });
         buttons.add(pay, 0, 1);
         Button cancel = new Button("cancel");
         buttons.add(cancel, 1, 1);
@@ -65,9 +60,9 @@ public class OrderView {
     private Node getOrderList(int tableNumber) {
         ListView<String> orderList = new ListView<>();
         ObservableList<String> items = FXCollections.observableArrayList(
-                orderController.getOrdersFor(tableNumber)
+                orderController.getOrderLinesFor(tableNumber)
                         .stream()
-                        .map(OrderDTO::getBeverageDTO)
+                        .map(OrderLineDTO::getBeverageDTO)
                         .map(BeverageDTO::getBeverageName)
                         .collect(Collectors.toList()));
         orderList.setItems(items);
