@@ -97,4 +97,8 @@ public class OrderRepository extends Repository<Order> {
         }
 
     }
+
+    public List<Order> getOpenOrdersFor(int tableNumber) {
+        return new ArrayList<>();
+    }
 }
