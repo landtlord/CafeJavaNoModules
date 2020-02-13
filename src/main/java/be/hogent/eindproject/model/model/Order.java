@@ -13,6 +13,15 @@ public class Order {
 
     private Waiter waiter;
 
+    public Order(int ID, List<OrderLine> orderLines, int tableNumber, Boolean payed, LocalDate date, Waiter waiter) {
+        this.ID = ID;
+        this.orderLines = orderLines;
+        this.tableNumber = tableNumber;
+        this.payed = payed;
+        this.date = date;
+        this.waiter = waiter;
+    }
+
     public Order(int ID, int tableNumber, Boolean payed, Waiter waiter, LocalDate date) {
         this.ID = ID;
         this.tableNumber = tableNumber;

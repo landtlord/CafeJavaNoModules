@@ -65,7 +65,7 @@ public class OrderView {
     private Node getOrderList(int tableNumber) {
         ListView<String> orderList = new ListView<>();
         ObservableList<String> items = FXCollections.observableArrayList(
-                orderController.getOrdersFor(tableNumber)
+                orderController.getOrderLinesFor(tableNumber)
                         .stream()
                         .map(OrderLineDTO::getBeverageDTO)
                         .map(BeverageDTO::getBeverageName)

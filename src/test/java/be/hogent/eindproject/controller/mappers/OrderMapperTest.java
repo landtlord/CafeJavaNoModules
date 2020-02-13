@@ -23,7 +23,7 @@ class OrderMapperTest {
         Beverage beverage = new Beverage(1, "Cola", 2.40);
         int quantity = 3;
         LocalDate date = LocalDate.now();
-        OrderLine orderLine = new OrderLine(id, orderNumber, beverage, quantity, date);
+        OrderLine orderLine = new OrderLine(id, orderNumber, beverage, quantity);
 
         //when
         OrderLineDTO orderDTO = OrderMapper.mapToOrderDTO(orderLine);
@@ -33,7 +33,6 @@ class OrderMapperTest {
         assertEquals(orderNumber, orderDTO.getOrderNumber());
         assertEquals(BeverageMapper.mapToBeverageDTO(beverage), orderDTO.getBeverageDTO());
         assertEquals(quantity, orderDTO.getQuantity());
-        assertEquals(date, orderDTO.getDate());
     }
 
     @Test
@@ -44,7 +43,7 @@ class OrderMapperTest {
         BeverageDTO beverageDTO = getBeverageDTO();
         int quantity = 3;
         LocalDate date = LocalDate.now();
-        OrderLineDTO orderDTO = getOrderLinDTO(id, orderNumber, beverageDTO, quantity, date);
+        OrderLineDTO orderDTO = getOrderLinDTO(id, orderNumber, beverageDTO, quantity);
 
         //when
         OrderLine orderLine = OrderMapper.mapToOrder(orderDTO);
@@ -54,17 +53,15 @@ class OrderMapperTest {
         assertEquals(orderNumber, orderLine.getOrderNumber());
         assertEquals(BeverageMapper.mapToBeverage(beverageDTO), orderLine.getBeverage());
         assertEquals(quantity, orderLine.getQuantity());
-        assertEquals(date, orderLine.getDate());
 
     }
 
-    private OrderLineDTO getOrderLinDTO(int id, int orderNumber, BeverageDTO beverageDTO, int quantity, LocalDate date) {
+    private OrderLineDTO getOrderLinDTO(int id, int orderNumber, BeverageDTO beverageDTO, int quantity) {
         OrderLineDTO orderLineDTO = new OrderLineDTO();
         orderLineDTO.setId(id);
         orderLineDTO.setOrderNumber(orderNumber);
         orderLineDTO.setBeverageDTO(beverageDTO);
         orderLineDTO.setQuantity(quantity);
-        orderLineDTO.setDate(date);
 
         return orderLineDTO;
     }

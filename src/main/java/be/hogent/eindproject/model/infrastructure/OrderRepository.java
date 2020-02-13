@@ -22,7 +22,8 @@ public class OrderRepository extends Repository<Order> {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM orders where ID = " + ID);
             resultSet.next();
             Order order = getOrderFromResultset(resultSet);
-            ResultSet resultSet1 = statement.executeQuery("SELECT * FROM orderlines where orderNumber = " + order.getID());
+            Statement statement1 = connection.createStatement();
+            ResultSet resultSet1 = statement1.executeQuery("SELECT * FROM orderlines where orderNumber = " + order.getID());
             order.setOrderLines(getOrderLinesFromResultSet(resultSet1));
             cleanUpEnvironment(connection, statement, resultSet);
             return order;
@@ -49,7 +50,7 @@ public class OrderRepository extends Repository<Order> {
         try {
             Connection connection = getRepoConnection();
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM orders where table_number = " + tableNumber + " and payed = true");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM orders where table_number = " + tableNumber + " and payed = 0");
             if (!resultSet.next()) return null;
             return findByID(resultSet.getInt("ID"));
         } catch (SQLException e) {
@@ -75,8 +76,6 @@ public class OrderRepository extends Repository<Order> {
         List<OrderLine> orderLines = new ArrayList<>();
         while (resultSet.next()) {
             Beverage beverage = beverageRepository.findByID(resultSet.getInt("beverageID"));
-
-
             orderLines.add(new OrderLine(
                     resultSet.getInt("ID"),
                     resultSet.getInt("orderNumber"),
@@ -85,5 +84,4 @@ public class OrderRepository extends Repository<Order> {
         }
         return orderLines;
     }
-
 }

@@ -39,6 +39,7 @@ public class MainView {
 
     public void switchToTableView() {
         mainView.getChildren().clear();
+        tableView = new TableView(this, tableController, loginController);
         mainView.getChildren().add(tableView.getTableView());
     }
 }

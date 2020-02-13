@@ -26,7 +26,6 @@ public class LinkBox {
         this.mainView = mainView;
         setLoggedInUser();
         setLinkBox();
-
     }
 
     private void setLoggedInUser() {
@@ -73,7 +72,10 @@ public class LinkBox {
                 }
             }
         }
-        refreshLoggedInUser();
+        if (logInController.getLoggedInWaiterDTO() != null) {
+            refreshLoggedInUser();
+            mainView.switchToTableView();
+        }
     }
 
     private void refreshLoggedInUser() {
