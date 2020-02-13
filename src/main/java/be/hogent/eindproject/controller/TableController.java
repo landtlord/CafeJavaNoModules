@@ -32,4 +32,8 @@ public class TableController extends Controller {
             tableList.put(i, table);
         }
     }
+
+    public void tablePayed(int tableNumber) {
+        tableList.get(tableNumber).payOrder();
+    }
 }

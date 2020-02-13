@@ -42,4 +42,9 @@ public class MainView {
         tableView = new TableView(this, tableController, loginController);
         mainView.getChildren().add(tableView.getTableView());
     }
+
+    public void switchToTableView(int tableNumber) {
+        tableController.tablePayed(tableNumber);
+        switchToTableView();
+    }
 }

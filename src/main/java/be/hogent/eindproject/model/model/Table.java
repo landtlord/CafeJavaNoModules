@@ -32,4 +32,8 @@ public class Table {
     public boolean hasOpenOrder() {
         return order != null;
     }
+
+    public void payOrder() {
+        order = null;
+    }
 }

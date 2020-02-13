@@ -84,4 +84,17 @@ public class OrderRepository extends Repository<Order> {
         }
         return orderLines;
     }
+
+    public void payOpenOrderFor(int tableNumber) {
+        int orderID = getOpenOrderIDFor(tableNumber);
+        try {
+            Connection connection = getRepoConnection();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("UPDATE orders SET payed = 1 WHERE ID = " + orderID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException();
+        }
+
+    }
 }

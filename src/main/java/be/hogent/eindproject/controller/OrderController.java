@@ -37,4 +37,8 @@ public class OrderController extends Controller {
             return Collections.emptyList();
         }
     }
+
+    public void payOrder(int tableNumber) {
+        orderRepository.payOpenOrderFor(tableNumber);
+    }
 }
