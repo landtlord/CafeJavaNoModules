@@ -8,7 +8,9 @@ public class TableMapper {
         TableDTO tableDTO = new TableDTO();
         tableDTO.setTableNumber(table.getTableNumber());
         tableDTO.setOrders(table.hasOpenOrder());
-        tableDTO.setWaiterDTO(WaiterMapper.mapToWaiterDTO(table.getOrder().getWaiter()));
+        if (table.hasOpenOrder()) {
+            tableDTO.setWaiterDTO(WaiterMapper.mapToWaiterDTO(table.getOrder().getWaiter()));
+        }
         return tableDTO;
     }
 

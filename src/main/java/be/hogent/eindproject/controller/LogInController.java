@@ -40,6 +40,7 @@ public class LogInController extends Controller {
 
     public void logOut() {
         loggedIn = false;
+        setNoBodyLoggedInWaiterDTO();
     }
 
     private void setNoBodyLoggedInWaiterDTO() {

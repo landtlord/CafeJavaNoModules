@@ -1,6 +1,5 @@
 package be.hogent.eindproject.controller.DTO;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class OrderLineDTO {
@@ -8,7 +7,6 @@ public class OrderLineDTO {
     private int orderNumber;
     private BeverageDTO beverageDTO;
     private int quantity;
-    private LocalDate date;
     private WaiterDTO waiterDTO;
 
     public OrderLineDTO() {
@@ -28,10 +26,6 @@ public class OrderLineDTO {
 
     public int getQuantity() {
         return this.quantity;
-    }
-
-    public LocalDate getDate() {
-        return this.date;
     }
 
     public WaiterDTO getWaiterDTO() {
@@ -54,10 +48,6 @@ public class OrderLineDTO {
         this.quantity = quantity;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     public void setWaiterDTO(WaiterDTO waiterDTO) {
         this.waiterDTO = waiterDTO;
     }
@@ -71,13 +61,12 @@ public class OrderLineDTO {
                 orderNumber == orderDTO.orderNumber &&
                 quantity == orderDTO.quantity &&
                 Objects.equals(beverageDTO, orderDTO.beverageDTO) &&
-                Objects.equals(date, orderDTO.date) &&
                 Objects.equals(waiterDTO, orderDTO.waiterDTO);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, orderNumber, beverageDTO, quantity, date, waiterDTO);
+        return Objects.hash(id, orderNumber, beverageDTO, quantity, waiterDTO);
     }
 
     @Override
@@ -87,7 +76,6 @@ public class OrderLineDTO {
                 ", orderNumber=" + orderNumber +
                 ", beverageDTO=" + beverageDTO +
                 ", quantity=" + quantity +
-                ", date=" + date +
                 ", waiterDTO=" + waiterDTO +
                 '}';
     }

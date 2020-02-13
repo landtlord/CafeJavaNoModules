@@ -10,7 +10,6 @@ public class OrderMapper {
         orderLineDTO.setOrderNumber(orderLine.getOrderNumber());
         orderLineDTO.setBeverageDTO(BeverageMapper.mapToBeverageDTO(orderLine.getBeverage()));
         orderLineDTO.setQuantity(orderLine.getQuantity());
-        orderLineDTO.setDate(orderLine.getDate());
 
         return orderLineDTO;
     }
@@ -20,8 +19,7 @@ public class OrderMapper {
                 orderLineDTO.getId(),
                 orderLineDTO.getOrderNumber(),
                 BeverageMapper.mapToBeverage(orderLineDTO.getBeverageDTO()),
-                orderLineDTO.getQuantity(),
-                orderLineDTO.getDate()
+                orderLineDTO.getQuantity()
         );
     }
 
