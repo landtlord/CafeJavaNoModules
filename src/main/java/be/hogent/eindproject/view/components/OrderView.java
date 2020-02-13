@@ -1,7 +1,7 @@
 package be.hogent.eindproject.view.components;
 
 import be.hogent.eindproject.controller.DTO.BeverageDTO;
-import be.hogent.eindproject.controller.DTO.OrderDTO;
+import be.hogent.eindproject.controller.DTO.OrderLineDTO;
 import be.hogent.eindproject.controller.OrderController;
 import be.hogent.eindproject.view.Cafe;
 import javafx.collections.FXCollections;
@@ -67,7 +67,7 @@ public class OrderView {
         ObservableList<String> items = FXCollections.observableArrayList(
                 orderController.getOrdersFor(tableNumber)
                         .stream()
-                        .map(OrderDTO::getBeverageDTO)
+                        .map(OrderLineDTO::getBeverageDTO)
                         .map(BeverageDTO::getBeverageName)
                         .collect(Collectors.toList()));
         orderList.setItems(items);

@@ -1,7 +1,7 @@
 package be.hogent.eindproject.controller;
 
 import be.hogent.eindproject.controller.DTO.BeverageDTO;
-import be.hogent.eindproject.controller.DTO.OrderDTO;
+import be.hogent.eindproject.controller.DTO.OrderLineDTO;
 import be.hogent.eindproject.controller.DTO.mappers.BeverageMapper;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class OrderController extends Controller {
         return beverageDTOs;
     }
 
-    public List<OrderDTO> getOrdersFor(int tableNumber) {
+    public List<OrderLineDTO> getOrdersFor(int tableNumber) {
         return new ArrayList<>();
     }
 }

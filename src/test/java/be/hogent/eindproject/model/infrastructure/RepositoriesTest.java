@@ -1,11 +1,9 @@
 package be.hogent.eindproject.model.infrastructure;
 
 import be.hogent.eindproject.model.model.Beverage;
-import be.hogent.eindproject.model.model.OrderLine;
 import be.hogent.eindproject.model.model.Waiter;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,20 +45,6 @@ class RepositoriesTest {
         assertThat(waiter.getLastName()).isEqualTo("Peters");
         assertThat(waiter.getPassword()).isEqualTo("password");
 
-    }
-
-    @Test
-    void givenOrderRepository_whenFindByID_theTheCorrectOrderIsProvide() {
-        //when
-        OrderLine orderLine = orderRepository.findByID(1);
-
-        //then
-        assertThat(orderLine.getId()).isEqualTo(1);
-        assertThat(orderLine.getOrderNumber()).isEqualTo(1);
-        assertThat(orderLine.getQuantity()).isEqualTo(5);
-        assertThat(orderLine.getDate()).isEqualTo(LocalDate.of(2019, 12, 13));
-        assertThat(orderLine.getBeverage()).isEqualTo(beverageRepository.findByID(1));
-        assertThat(orderLine.getWaiter()).isEqualTo(waiterRepository.findByID(1));
     }
 
     private List<Beverage> getAllBeveragesInDatabase() {

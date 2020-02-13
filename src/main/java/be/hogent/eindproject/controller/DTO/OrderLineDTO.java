@@ -3,7 +3,7 @@ package be.hogent.eindproject.controller.DTO;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class OrderDTO {
+public class OrderLineDTO {
     private int id;
     private int orderNumber;
     private BeverageDTO beverageDTO;
@@ -11,7 +11,7 @@ public class OrderDTO {
     private LocalDate date;
     private WaiterDTO waiterDTO;
 
-    public OrderDTO() {
+    public OrderLineDTO() {
     }
 
     public int getId() {
@@ -66,7 +66,7 @@ public class OrderDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OrderDTO orderDTO = (OrderDTO) o;
+        OrderLineDTO orderDTO = (OrderLineDTO) o;
         return id == orderDTO.id &&
                 orderNumber == orderDTO.orderNumber &&
                 quantity == orderDTO.quantity &&
@@ -82,7 +82,7 @@ public class OrderDTO {
 
     @Override
     public String toString() {
-        return "OrderDTO{" +
+        return "OrderLineDTO{" +
                 "id=" + id +
                 ", orderNumber=" + orderNumber +
                 ", beverageDTO=" + beverageDTO +

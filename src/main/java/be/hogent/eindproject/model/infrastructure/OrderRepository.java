@@ -23,7 +23,7 @@ public class OrderRepository extends Repository<Order> {
             resultSet.next();
             Order order = getOrderFromResultset(resultSet);
             ResultSet resultSet1 = statement.executeQuery("SELECT * FROM orderlines where orderNumber = " + order.getID());
-            order.setOrderLines(getOrderLinesFromResultset(resultSet1));
+            order.setOrderLines(getOrderLinesFromResultSet(resultSet1));
             cleanUpEnvironment(connection, statement, resultSet);
             return order;
         } catch (SQLException e) {
@@ -32,53 +32,20 @@ public class OrderRepository extends Repository<Order> {
         }
     }
 
-    private Order getOrderFromResultset(ResultSet resultSet) throws SQLException {
-        int ID = resultSet.getInt("ID");
-        int tableNumber = resultSet.getInt("table_number");
-        boolean payed = resultSet.getBoolean("payed");
-
-        return new Order(ID, tableNumber, payed);
-
-
-    }
-
-//    public Optional<List<OrderLine>> getOpenOrdersFor(int tableNumber) {
-//        try {
-//            Connection connection = getRepoConnection();
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery("SELECT * FROM orderLines where ID = " + ID);
-//            resultSet.next();
-//            OrderLine orderLine = getOrderLineFromResultset(resultSet);
-//            cleanUpEnvironment(connection, statement, resultSet);
-//            return orderLine;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
-    private List<OrderLine> getOrderLinesFromResultset(ResultSet resultSet) throws SQLException {
-        List<OrderLine> orderLines = new ArrayList<>();
-        while (resultSet.next()) {
-            Beverage beverage = beverageRepository.findByID(resultSet.getInt("beverageID"));
-            Waiter waiter = waiterRepository.findByID(resultSet.getInt("waiterID"));
-
-            Date date = resultSet.getDate("date");
-            LocalDate localDate = date.toLocalDate().plusDays(1);
-
-            orderLines.add(new OrderLine(
-                    resultSet.getInt("ID"),
-                    resultSet.getInt("orderNumber"),
-                    beverage,
-                    resultSet.getInt("qty"),
-                    localDate,
-                    waiter));
+    public Integer getOpenOrderIDFor(int tableNumber) {
+        try {
+            Connection connection = getRepoConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT ID FROM orders where table_number = " + tableNumber + " and payed = false");
+            if (!resultSet.next()) return null;
+            return resultSet.getInt("ID");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException();
         }
-        return orderLines;
     }
 
-
-    public Order getOpenOrdersFor(int tableNumber) {
+    public Order getOpenOrderFor(int tableNumber) {
         try {
             Connection connection = getRepoConnection();
             Statement statement = connection.createStatement();
@@ -90,4 +57,33 @@ public class OrderRepository extends Repository<Order> {
             return null;
         }
     }
+
+    private Order getOrderFromResultset(ResultSet resultSet) throws SQLException {
+        int ID = resultSet.getInt("ID");
+        int tableNumber = resultSet.getInt("table_number");
+        boolean payed = resultSet.getBoolean("payed");
+        Waiter waiter = waiterRepository.findByID(resultSet.getInt("waiterID"));
+        Date date = resultSet.getDate("date");
+        LocalDate localDate = date.toLocalDate();
+
+        return new Order(ID, tableNumber, payed, waiter, localDate);
+
+
+    }
+
+    private List<OrderLine> getOrderLinesFromResultSet(ResultSet resultSet) throws SQLException {
+        List<OrderLine> orderLines = new ArrayList<>();
+        while (resultSet.next()) {
+            Beverage beverage = beverageRepository.findByID(resultSet.getInt("beverageID"));
+
+
+            orderLines.add(new OrderLine(
+                    resultSet.getInt("ID"),
+                    resultSet.getInt("orderNumber"),
+                    beverage,
+                    resultSet.getInt("qty")));
+        }
+        return orderLines;
+    }
+
 }

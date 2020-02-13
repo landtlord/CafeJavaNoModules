@@ -1,6 +1,5 @@
 package be.hogent.eindproject.model.model;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class OrderLine {
@@ -8,16 +7,14 @@ public class OrderLine {
     private final int orderNumber;
     private final Beverage beverage;
     private final int quantity;
-    private final LocalDate date;
-    private final Waiter waiter;
 
-    public OrderLine(int id, int orderNumber, Beverage beverage, int quantity, LocalDate date, Waiter waiter) {
+
+    public OrderLine(int id, int orderNumber, Beverage beverage, int quantity) {
         this.id = id;
         this.orderNumber = orderNumber;
         this.beverage = beverage;
         this.quantity = quantity;
-        this.date = date;
-        this.waiter = waiter;
+
     }
 
     public int getId() {
@@ -34,14 +31,6 @@ public class OrderLine {
 
     public int getQuantity() {
         return this.quantity;
-    }
-
-    public LocalDate getDate() {
-        return this.date;
-    }
-
-    public Waiter getWaiter() {
-        return this.waiter;
     }
 
     @Override
