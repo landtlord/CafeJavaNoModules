@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -73,11 +74,17 @@ public class OrderView {
     }
 
     private Node getBeverageListView() {
-        ListView<String> beverageDTOs = new ListView<>();
-        ObservableList<String> items = FXCollections.observableArrayList(
+        ListView<HBox> beverageDTOs = new ListView<>();
+        ObservableList<HBox> items = FXCollections.observableArrayList(
                 orderController.getBeverageDTOs()
                         .stream()
-                        .map(BeverageDTO::getBeverageName)
+                        .map(beverageDTO -> {
+                            HBox hbox = new HBox();
+                            Label label = new Label(beverageDTO.getBeverageName());
+                            hbox.getChildren().add(label);
+                            //todo
+                            return hbox;
+                        })
                         .collect(Collectors.toList()));
         beverageDTOs.setItems(items);
         beverageDTOs.setMinWidth(Cafe.WIDTH * 5 / (6 * 2));
