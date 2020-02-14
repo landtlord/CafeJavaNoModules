@@ -2,8 +2,11 @@ package be.hogent.eindproject.controller;
 
 import be.hogent.eindproject.controller.DTO.BeverageDTO;
 import be.hogent.eindproject.controller.DTO.OrderLineDTO;
+import be.hogent.eindproject.controller.DTO.TableDTO;
+import be.hogent.eindproject.controller.DTO.WaiterDTO;
 import be.hogent.eindproject.controller.DTO.mappers.BeverageMapper;
 import be.hogent.eindproject.controller.DTO.mappers.OrderMapper;
+import be.hogent.eindproject.model.model.Order;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,5 +43,17 @@ public class OrderController extends Controller {
 
     public void payOrder(int tableNumber) {
         orderRepository.payOpenOrderFor(tableNumber);
+    }
+
+    public void addOrderLinesToOrder(List<OrderLineDTO> orderLineDTOS, TableDTO tableDTO, WaiterDTO waiterDTO) {
+        Order openOrderOnTable = orderRepository.getOpenOrderFor(tableDTO.getTableNumber());
+        if (openOrderOnTable == null) {
+            orderRepository.addOrderOnTable(tableDTO.getTableNumber(), waiterDTO.getId());
+            openOrderOnTable = orderRepository.getOpenOrderFor(tableDTO.getTableNumber());
+        }
+        int orderNumber = openOrderOnTable.getID();
+        orderLineDTOS.stream()
+                .map(OrderMapper::mapToOrderLine)
+                .forEach(orderLine -> orderRepository.addOrderLineToOrder(orderLine, orderNumber));
     }
 }

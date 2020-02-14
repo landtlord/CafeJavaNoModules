@@ -101,4 +101,34 @@ public class OrderRepository extends Repository<Order> {
     public List<Order> getOpenOrdersFor(int tableNumber) {
         return new ArrayList<>();
     }
+
+    public void addOrderOnTable(int tableNumber, int waiterId) {
+        try {
+            Connection connection = getRepoConnection();
+            Statement statement = connection.createStatement();
+            LocalDate localDate = LocalDate.now();
+            Date date = Date.valueOf(localDate);
+            statement.executeUpdate("INSERT INTO orders (table_number, payed, waiterID, date)  VALUES ( " + tableNumber + " , 0 , " + waiterId + " , '" + date + "' )");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addOrderLineToOrder(OrderLine orderLine, int orderNumber) {
+        try {
+            Connection connection = getRepoConnection();
+            Statement statement = connection.createStatement();
+            int beverageID = orderLine.getBeverage().getBeverageID();
+            ResultSet resultSet = statement.executeQuery("select * from orderlines where orderNumber = " + orderNumber + " and beverageID = " + beverageID);
+            if (resultSet.next()) {
+                int orderLineId = resultSet.getInt("ID");
+                int quantity = resultSet.getInt("qty") + orderLine.getQuantity();
+                statement.executeUpdate("UPDATE orderlines SET qty = " + quantity + " WHERE ID = " + orderLineId);
+            } else {
+                statement.executeUpdate("INSERT INTO orderlines (orderNumber, beverageID, qty)  VALUES ( " + orderNumber + " , " + beverageID + " ," + orderLine.getQuantity() + " )");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

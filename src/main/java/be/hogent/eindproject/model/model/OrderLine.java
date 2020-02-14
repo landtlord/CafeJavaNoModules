@@ -3,18 +3,19 @@ package be.hogent.eindproject.model.model;
 import java.util.Objects;
 
 public class OrderLine {
-    private final int id;
-    private final int orderNumber;
-    private final Beverage beverage;
-    private final int quantity;
+    private int id;
+    private int orderNumber;
+    private Beverage beverage;
+    private int quantity;
 
+    public OrderLine() {
+    }
 
     public OrderLine(int id, int orderNumber, Beverage beverage, int quantity) {
         this.id = id;
         this.orderNumber = orderNumber;
         this.beverage = beverage;
         this.quantity = quantity;
-
     }
 
     public int getId() {
@@ -31,6 +32,22 @@ public class OrderLine {
 
     public int getQuantity() {
         return this.quantity;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public void setBeverage(Beverage beverage) {
+        this.beverage = beverage;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override

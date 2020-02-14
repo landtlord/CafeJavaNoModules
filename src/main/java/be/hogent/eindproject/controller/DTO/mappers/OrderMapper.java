@@ -14,12 +14,12 @@ public class OrderMapper {
         return orderLineDTO;
     }
 
-    public static OrderLine mapToOrder(OrderLineDTO orderLineDTO) {
-        return new OrderLine(
-                orderLineDTO.getId(),
-                orderLineDTO.getOrderNumber(),
-                BeverageMapper.mapToBeverage(orderLineDTO.getBeverageDTO()),
-                orderLineDTO.getQuantity()
-        );
+    public static OrderLine mapToOrderLine(OrderLineDTO orderLineDTO) {
+        OrderLine orderLine = new OrderLine();
+        orderLine.setId(orderLineDTO.getId());
+        orderLine.setOrderNumber(orderLineDTO.getOrderNumber());
+        orderLine.setBeverage(BeverageMapper.mapToBeverage(orderLineDTO.getBeverageDTO()));
+        orderLine.setQuantity(orderLineDTO.getQuantity());
+        return orderLine;
     }
 }

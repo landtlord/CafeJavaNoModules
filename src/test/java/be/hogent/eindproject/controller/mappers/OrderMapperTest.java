@@ -46,7 +46,7 @@ class OrderMapperTest {
         OrderLineDTO orderDTO = getOrderLinDTO(id, orderNumber, beverageDTO, quantity);
 
         //when
-        OrderLine orderLine = OrderMapper.mapToOrder(orderDTO);
+        OrderLine orderLine = OrderMapper.mapToOrderLine(orderDTO);
 
         //then
         assertEquals(id, orderLine.getId());

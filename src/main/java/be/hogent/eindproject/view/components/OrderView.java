@@ -44,6 +44,7 @@ public class OrderView {
         buttons.add(add, 0, 0);
         Button correct = new Button("correct");
         buttons.add(correct, 1, 0);
+//        add.setOnAction();
         Button pay = new Button("pay");
         pay.setOnAction(e -> {
             new CheckOutPopUp(orderController.getOrderLinesFor(tableNumber)).getCheckOutPopUp().showAndWait();
