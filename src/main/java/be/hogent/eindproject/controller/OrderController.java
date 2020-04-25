@@ -2,7 +2,6 @@ package be.hogent.eindproject.controller;
 
 import be.hogent.eindproject.controller.DTO.BeverageDTO;
 import be.hogent.eindproject.controller.DTO.OrderLineDTO;
-import be.hogent.eindproject.controller.DTO.TableDTO;
 import be.hogent.eindproject.controller.DTO.WaiterDTO;
 import be.hogent.eindproject.controller.DTO.mappers.BeverageMapper;
 import be.hogent.eindproject.controller.DTO.mappers.OrderMapper;
@@ -45,14 +44,15 @@ public class OrderController extends Controller {
         orderRepository.payOpenOrderFor(tableNumber);
     }
 
-    public void addOrderLinesToOrder(List<OrderLineDTO> orderLineDTOS, TableDTO tableDTO, WaiterDTO waiterDTO) {
-        Order openOrderOnTable = orderRepository.getOpenOrderFor(tableDTO.getTableNumber());
+    public void addOrderLinesToOrder(List<OrderLineDTO> orderLineDTOS, int tableNumber, WaiterDTO waiterDTO) {
+        Order openOrderOnTable = orderRepository.getOpenOrderFor(tableNumber);
         if (openOrderOnTable == null) {
-            orderRepository.addOrderOnTable(tableDTO.getTableNumber(), waiterDTO.getId());
-            openOrderOnTable = orderRepository.getOpenOrderFor(tableDTO.getTableNumber());
+            orderRepository.addOrderOnTable(tableNumber, waiterDTO.getId());
+            openOrderOnTable = orderRepository.getOpenOrderFor(tableNumber);
         }
         int orderNumber = openOrderOnTable.getID();
         orderLineDTOS.stream()
+                .filter(orderLineDTO -> orderLineDTO.getQuantity() != 0)
                 .map(OrderMapper::mapToOrderLine)
                 .forEach(orderLine -> orderRepository.addOrderLineToOrder(orderLine, orderNumber));
     }

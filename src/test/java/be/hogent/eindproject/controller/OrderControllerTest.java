@@ -1,7 +1,6 @@
 package be.hogent.eindproject.controller;
 
 import be.hogent.eindproject.controller.DTO.OrderLineDTO;
-import be.hogent.eindproject.controller.DTO.TableDTO;
 import be.hogent.eindproject.controller.DTO.WaiterDTO;
 import org.junit.jupiter.api.Test;
 
@@ -27,8 +26,6 @@ class OrderControllerTest {
         orderLineDTO.setBeverageDTO(orderController.getBeverageDTOs().get(0));
         orderLineDTO.setWaiterDTO(waiterDTO);
         orderLineDTO.setQuantity(5);
-        TableDTO tableDTO = new TableDTO();
-        tableDTO.setTableNumber(99);
-        orderController.addOrderLinesToOrder(List.of(orderLineDTO), tableDTO, waiterDTO);
+        orderController.addOrderLinesToOrder(List.of(orderLineDTO), 99, waiterDTO);
     }
 }

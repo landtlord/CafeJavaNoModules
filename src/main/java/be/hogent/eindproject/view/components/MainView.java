@@ -23,7 +23,7 @@ public class MainView {
         this.tableController = tableController;
         this.orderController = orderController;
         tableView = new TableView(this, tableController, loginController);
-        orderView = new OrderView(this, orderController);
+        orderView = new OrderView(this, orderController, loginController);
         mainView.getChildren().add(tableView.getTableView());
     }
 
